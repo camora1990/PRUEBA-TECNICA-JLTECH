@@ -7,6 +7,5 @@ module.exports = {
   customerModel,
   employeeModel,
   productModel,
-  roleModel,
   salelModel,
 };

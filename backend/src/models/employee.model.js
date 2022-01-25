@@ -28,7 +28,7 @@ const employeeSchema = new Schema(
     },
     role: {
       type: String,
-      enum: ["ADMINISTRATOR", "SELLER", "HUMAN RESOURCES", "warehouseman"],
+      enum: ["ADMINISTRATOR", "SELLER", "HUMAN RESOURCES", "WAREHOUSEMAN"],
       default: "ADMINISTRATOR",
     },
   },
