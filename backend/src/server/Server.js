@@ -1,14 +1,21 @@
 const express = require("express");
 const morgan = require("morgan");
 const cors = require("cors");
+const {
+  connectionDatabaseTestJLTECH,
+} = require("../database/connection.database");
 require("colors");
 
 class Server {
   constructor() {
     this.PORT = process.env.PORT;
     this.app = express();
+    this.CONNECTION_STRING = process.env.CONNECTION_STRING;
+
     this.middlewares();
+    this.dataBaseConnection()
     this.routes();
+
   }
 
   middlewares() {
@@ -20,7 +27,11 @@ class Server {
 
   routes() {}
 
-  dataBaseConnection() {}
+  dataBaseConnection() {
+    connectionDatabaseTestJLTECH(this.CONNECTION_STRING)
+      .then((test) => console.log("DataBase connected".bgMagenta))
+      .catch(console.error);
+  }
 
   initServer() {
     this.app.listen(this.PORT, () => {
