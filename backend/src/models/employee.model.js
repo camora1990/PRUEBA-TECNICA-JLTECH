@@ -27,12 +27,12 @@ const employeeSchema = new Schema(
       type: String,
     },
     role: {
-      type: Schema.Types.ObjectId,
-      ref: "Role",
-      required: true,
+      type: String,
+      enum: ["ADMINISTRATOR", "SELLER", "HUMAN RESOURCES", "warehouseman"],
+      default: "ADMINISTRATOR",
     },
   },
   { timestamps: true }
 );
 
-module.exports =  model("Employee", employeeSchema);
+module.exports = model("Employee", employeeSchema);
