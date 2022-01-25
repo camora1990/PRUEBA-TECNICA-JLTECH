@@ -1,15 +1,14 @@
-import express from "express";
-import morgan from "morgan";
-import cors from "cors";
-import "colors";
+const express = require("express");
+const morgan = require("morgan");
+const cors = require("cors");
+require("colors");
 
-export default class Server {
+class Server {
   constructor() {
     this.PORT = process.env.PORT;
     this.app = express();
-
-    this.middlewares()
-    this.routes()
+    this.middlewares();
+    this.routes();
   }
 
   middlewares() {
@@ -30,10 +29,4 @@ export default class Server {
   }
 }
 
-
-
-
-
-
-
-
+module.exports = Server;
