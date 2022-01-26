@@ -1,6 +1,7 @@
 const express = require("express");
 const morgan = require("morgan");
 const cors = require("cors");
+const fileUpload = require("express-fileupload");
 const {
   connectionDatabaseTestJLTECH,
 } = require("../database/connection.database");
@@ -28,17 +29,29 @@ class Server {
   }
 
   middlewares() {
-    this.app.use(this.paths.productImage, express.static("src/storage/products/"));
-    this.app.use(this.paths.employeeImage, express.static("src/storage/employee/"));
+    this.app.use(
+      this.paths.productImage,
+      express.static("src/storage/products/")
+    );
+    this.app.use(
+      this.paths.employeeImage,
+      express.static("src/storage/employees/")
+    );
     this.app.use(cors({ origin: "*" }));
     this.app.use(morgan("dev"));
     this.app.use(express.json());
     this.app.use(express.urlencoded({ extended: true }));
+    this.app.use(
+      fileUpload({
+        useTempFiles: true,
+        tempFileDir: "/tmp/",
+        createParentPath: true,
+      })
+    );
   }
 
   routes() {
     this.app.use(this.paths.register, require("../routes/register.route"));
-    
   }
 
   dataBaseConnection() {
