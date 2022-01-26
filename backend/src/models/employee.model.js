@@ -1,5 +1,10 @@
 const { model, Schema } = require("mongoose");
 
+const validRoles = {
+  values: ["ADMINISTRATOR", "SELLER", "HUMAN RESOURCES", "WAREHOUSEMAN"],
+  message: "Invalid role [ADMINISTRATOR, SELLER, HUMAN RESOURCES, WAREHOUSEMAN]",
+};
+
 const employeeSchema = new Schema(
   {
     name: {
@@ -28,11 +33,16 @@ const employeeSchema = new Schema(
     },
     role: {
       type: String,
-      enum: ["ADMINISTRATOR", "SELLER", "HUMAN RESOURCES", "WAREHOUSEMAN"],
+      enum: validRoles,
       default: "ADMINISTRATOR",
     },
   },
   { timestamps: true }
 );
+
+employeeSchema.methods.toJSON = function () {
+  const { password, __v, ...employee } = this.toObject;
+  return employee
+};
 
 module.exports = model("Employee", employeeSchema);
