@@ -18,6 +18,8 @@ class Server {
       sales: "/api/v1/sales",
       register: "/api/v1/register",
       login: "/api/v1/login",
+      productImage: "/public/product",
+      employeeImage: "/public/employee",
     };
 
     this.middlewares();
@@ -26,6 +28,8 @@ class Server {
   }
 
   middlewares() {
+    this.app.use(this.paths.productImage, express.static("src/storage/products/"));
+    this.app.use(this.paths.employeeImage, express.static("src/storage/employee/"));
     this.app.use(cors({ origin: "*" }));
     this.app.use(morgan("dev"));
     this.app.use(express.json());
@@ -34,6 +38,7 @@ class Server {
 
   routes() {
     this.app.use(this.paths.register, require("../routes/register.route"));
+    
   }
 
   dataBaseConnection() {
