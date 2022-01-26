@@ -1,4 +1,5 @@
 const { model, Schema } = require("mongoose");
+const mongoosePaginate = require('mongoose-paginate-v2')
 
 const saleSchema = new Schema({
   date: {
@@ -31,5 +32,7 @@ const saleSchema = new Schema({
     },
   ],
 });
+
+saleSchema.plugin(mongoosePaginate)
 
 module.exports = model("Sale", saleSchema);

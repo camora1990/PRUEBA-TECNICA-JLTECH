@@ -1,4 +1,5 @@
 const { model, Schema } = require("mongoose");
+const mongoosePaginate = require('mongoose-paginate-v2')
 
 const validRoles = {
   values: ["ADMINISTRATOR", "SELLER", "HUMAN RESOURCES", "WAREHOUSEMAN"],
@@ -41,8 +42,10 @@ const employeeSchema = new Schema(
   { timestamps: true }
 );
 
+employeeSchema.plugin(mongoosePaginate)
+
 employeeSchema.methods.toJSON = function () {
-  const { password, __v, ...employee } = this.toObject;
+  const { password, __v, ...employee } = this.toObject();
   return employee;
 };
 
