@@ -16,7 +16,7 @@ route.post(
       .if(check("email").exists())
       .custom(validateExistingEmail),
     check("name", "name is required").notEmpty(),
-    check("contact", "name is required").notEmpty(),
+    check("contact", "contact is required").notEmpty(),
     check("address", "address is required").notEmpty(),
     check("password")
       .notEmpty()
