@@ -16,7 +16,7 @@ const uploadImage = (files, imgIs = "employee") => {
     const imageExtension = splitImageName[splitImageName.length - 1];
     const temImg = `${uuidv4()}.${imageExtension}`;
 
-    if (!imageExtension.includes(imageExtension)) {
+    if (!validExtensions.includes(imageExtension)) {
       throw new Error(
         `Invalid extension, allowed extension are: [${validExtensions}]`
       );
