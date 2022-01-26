@@ -1,5 +1,4 @@
-
-
-module.exports={
-    ...require('./register.controller')
-}
+module.exports = {
+  ...require("./register.controller"),
+  ...require("./login.controller"),
+};
