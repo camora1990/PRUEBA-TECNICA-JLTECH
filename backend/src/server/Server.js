@@ -11,11 +11,18 @@ class Server {
     this.PORT = process.env.PORT;
     this.app = express();
     this.CONNECTION_STRING = process.env.CONNECTION_STRING;
+    this.paths = {
+      employee: "/api/v1/employees",
+      customer: "/api/v1/customers",
+      products: "/api/v1/products",
+      sales: "/api/v1/sales",
+      register: "/api/v1/register",
+      login: "/api/v1/login",
+    };
 
     this.middlewares();
-    this.dataBaseConnection()
+    this.dataBaseConnection();
     this.routes();
-
   }
 
   middlewares() {
@@ -25,7 +32,9 @@ class Server {
     this.app.use(express.urlencoded({ extended: true }));
   }
 
-  routes() {}
+  routes() {
+    this.app.use(this.paths.register, require("../routes/register.route"));
+  }
 
   dataBaseConnection() {
     connectionDatabaseTestJLTECH(this.CONNECTION_STRING)
