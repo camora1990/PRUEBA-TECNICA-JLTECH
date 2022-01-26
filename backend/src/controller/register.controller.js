@@ -1,43 +1,52 @@
 const { request, response } = require("express");
-const { deleteImgLocal } = require("../helpers/delete_image");
-const { uploadImage } = require("../helpers/uploap_image.helper");
+const {
+  deleteImgLocal,
+  uploadImage,
+  generalMessage,
+  encryptPassword,
+} = require("../helpers/");
+
 const { employeeModel } = require("../models");
 
 const register = async (req = request, res = response) => {
   const { name, contact, address, email, password, image, role } = req.body;
   const { files } = req;
   let imgName;
+
   try {
     const employee = new employeeModel({
       name,
       contact,
       address,
       email,
-      password,
       image,
       role,
     });
 
     if (files) {
-      imgName = await uploadImage(files);
-      employee.saveUrlImg(imgName);
+      try {
+        imgName = await uploadImage(files);
+        employee.saveUrlImg(imgName);
+      } catch (error) {
+        generalMessage(res, 400, false, null, error.message);
+        return;
+      }
     }
-
+    employee.password = await encryptPassword(password);
     await employee.save();
+    generalMessage(
+      res,
+      201,
+      true,
+      `Employee ${email} created successfully`,
+      employee
+    );
 
-    res.status(201).json({
-      ok: true,
-      message: `Employee ${email} created successfully`,
-      employee,
-    });
   } catch (error) {
     if (files && imgName) {
       await deleteImgLocal(imgName, "../storage/employees");
     }
-    res.status(500).json({
-      ok: false,
-      message: error.message,
-    });
+    generalMessage(res, 400, false, error.message);
   }
 };
 
