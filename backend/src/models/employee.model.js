@@ -2,7 +2,8 @@ const { model, Schema } = require("mongoose");
 
 const validRoles = {
   values: ["ADMINISTRATOR", "SELLER", "HUMAN RESOURCES", "WAREHOUSEMAN"],
-  message: "Invalid role [ADMINISTRATOR, SELLER, HUMAN RESOURCES, WAREHOUSEMAN]",
+  message:
+    "Invalid role [ADMINISTRATOR, SELLER, HUMAN RESOURCES, WAREHOUSEMAN]",
 };
 
 const employeeSchema = new Schema(
@@ -42,7 +43,11 @@ const employeeSchema = new Schema(
 
 employeeSchema.methods.toJSON = function () {
   const { password, __v, ...employee } = this.toObject;
-  return employee
+  return employee;
+};
+
+employeeSchema.methods.saveUrlImg = function (fileName) {
+  this.image = `http://localhost:8081/public/employee/${fileName}`;
 };
 
 module.exports = model("Employee", employeeSchema);

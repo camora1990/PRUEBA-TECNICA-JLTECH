@@ -28,4 +28,8 @@ const productSchema = new Schema({
   },
 });
 
+productSchema.methods.saveUrlImg = function (fileName) {
+  this.image = `http://localhost:8081/public/employee/${fileName}`;
+};
+
 module.exports = model("Product", productSchema);
