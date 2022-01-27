@@ -37,7 +37,26 @@ const validateRoleRouteCustomers = (req = request, res = response, next) => {
   next();
 };
 
+/**
+ * @description validate role route products and categories
+ * @param {*} req
+ * @param {*} res
+ * @param {*} next
+ * @returns
+ */
+ const validateRoleRouteProducts = (req = request, res = response, next) => {
+  const validRoles = ["ADMINISTRATOR", "WAREHOUSEMAN"];
+
+  const { role } = req.payload;
+  if (!validRoles.includes(role)) {
+    generalMessage(res, 401, false, "unauthorized user");
+    return;
+  }
+  next();
+};
+
 module.exports = {
-  validateRoleRouteEmployees,
   validateRoleRouteCustomers,
+  validateRoleRouteEmployees,
+  validateRoleRouteProducts
 };

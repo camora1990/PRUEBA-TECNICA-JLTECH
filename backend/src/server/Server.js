@@ -18,6 +18,7 @@ class Server {
       products: "/api/v1/products",
       sales: "/api/v1/sales",
       register: "/api/v1/register",
+      categories: "/api/v1/categories",
       login: "/api/v1/login",
       productImage: "/public/product",
       employeeImage: "/public/employee",
@@ -52,9 +53,10 @@ class Server {
 
   routes() {
     this.app.use(this.paths.register, require("../routes/register.route"));
-    this.app.use(this.paths.login,require('../routes/login.route'))
-    this.app.use(this.paths.employee,require('../routes/employee.route'))
-    this.app.use(this.paths.customer, require('../routes/customer.model'))
+    this.app.use(this.paths.login, require("../routes/login.route"));
+    this.app.use(this.paths.employee, require("../routes/employee.route"));
+    this.app.use(this.paths.customer, require("../routes/customer.route"));
+    this.app.use(this.paths.categories, require("../routes/category.route"));
   }
 
   dataBaseConnection() {
