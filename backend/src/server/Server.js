@@ -54,6 +54,7 @@ class Server {
     this.app.use(this.paths.register, require("../routes/register.route"));
     this.app.use(this.paths.login,require('../routes/login.route'))
     this.app.use(this.paths.employee,require('../routes/employee.route'))
+    this.app.use(this.paths.customer, require('../routes/customer.model'))
   }
 
   dataBaseConnection() {

@@ -3,10 +3,10 @@ const { generalMessage } = require("../helpers");
 
 /**
  * @description validate role route employees
- * @param {*} req 
- * @param {*} res 
- * @param {*} next 
- * @returns 
+ * @param {*} req
+ * @param {*} res
+ * @param {*} next
+ * @returns
  */
 const validateRoleRouteEmployees = (req = request, res = response, next) => {
   const validRoles = ["ADMINISTRATOR", "HUMAN RESOURCES"];
@@ -19,6 +19,25 @@ const validateRoleRouteEmployees = (req = request, res = response, next) => {
   next();
 };
 
-module.exports={
-    validateRoleRouteEmployees
-}
+/**
+ * @description validate role route customer
+ * @param {*} req
+ * @param {*} res
+ * @param {*} next
+ * @returns
+ */
+const validateRoleRouteCustomers = (req = request, res = response, next) => {
+  const validRoles = ["ADMINISTRATOR", "HUMAN RESOURCES", "SELLER"];
+
+  const { role } = req.payload;
+  if (!validRoles.includes(role)) {
+    generalMessage(res, 401, false, "unauthorized user");
+    return;
+  }
+  next();
+};
+
+module.exports = {
+  validateRoleRouteEmployees,
+  validateRoleRouteCustomers,
+};
