@@ -104,5 +104,4 @@ dist
 .tern-port
 
 #images
-storage/products/
-storage/users/
+storage/

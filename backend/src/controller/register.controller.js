@@ -28,7 +28,7 @@ const register = async (req = request, res = response) => {
         imgName = await uploadImage(files);
         employee.saveUrlImg(imgName);
       } catch (error) {
-        generalMessage(res, 400, false, null, error.message);
+        generalMessage(res, 400, false, error.message);
         return;
       }
     }
