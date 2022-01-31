@@ -1,5 +1,5 @@
 const { model, Schema } = require("mongoose");
-const mongoosePaginate = require('mongoose-paginate-v2')
+const mongoosePaginate = require("mongoose-paginate-v2");
 
 const productSchema = new Schema({
   name: {
@@ -9,17 +9,14 @@ const productSchema = new Schema({
   price: {
     type: Number,
     required: true,
-  },
-  stock: {
-    type: Number,
-    required: true,
+    min: 0,
   },
   descrition: {
     type: String,
     required: true,
   },
-  image: {
-    type: String,
+  images: {
+    type: Array,
     required: true,
   },
   category: {
@@ -29,10 +26,13 @@ const productSchema = new Schema({
   },
 });
 
-productSchema.plugin(mongoosePaginate)
+productSchema.plugin(mongoosePaginate);
 
-productSchema.methods.saveUrlImg = function (fileName) {
-  this.image = `http://localhost:8081/public/employee/${fileName}`;
+productSchema.methods.saveUrlImgs = function (fileNames) {
+  const temImages = fileNames.map(
+    (name) => `http://localhost:8081/public/products/${name}`
+  );
+  this.images = temImages;
 };
 
 module.exports = model("Product", productSchema);

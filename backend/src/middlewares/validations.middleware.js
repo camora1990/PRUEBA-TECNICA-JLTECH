@@ -67,7 +67,18 @@ const validateJWT = async (req = request, res = response, next) => {
   next();
 };
 
+const validateImages = (req = request, res = response, next) => {
+  const { files } = req;
+
+  if (!files || Object.keys(files).length==0||!files.image || files.length==0) {
+    generalMessage(res,400,false,"image is required!!")
+    return
+  }
+  next()
+};
+
 module.exports = {
   validateCredentials,
   validateJWT,
+  validateImages,
 };

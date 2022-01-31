@@ -57,6 +57,7 @@ class Server {
     this.app.use(this.paths.employee, require("../routes/employee.route"));
     this.app.use(this.paths.customer, require("../routes/customer.route"));
     this.app.use(this.paths.categories, require("../routes/category.route"));
+    this.app.use(this.paths.products,require('../routes/product.route'))
   }
 
   dataBaseConnection() {
