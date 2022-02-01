@@ -6,7 +6,7 @@
 
 se debe crear un archivo .env.
 
-En el archivo `.env.prueba` se encuentra alojado el ejemplo de cómo debe estar creado,el archivo .env necesario ya que se encuentran almacenadas las variables globales para:
+En el archivo `.env.prueba` se encuentra alojado el ejemplo de cómo debe estar creado, el archivo .env necesario ya que se encuentran almacenadas las variables globales para:
 
 - puerto (PORT)
 - conexión a base de datos (CONNECTION_STRING)
