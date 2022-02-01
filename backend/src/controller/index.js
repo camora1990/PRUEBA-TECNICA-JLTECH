@@ -4,4 +4,5 @@ module.exports = {
   ...require("./employee.controller"),
   ...require("./customer.controller"),
   ...require("./product.controller"),
+  ...require('./sales.controller')
 };

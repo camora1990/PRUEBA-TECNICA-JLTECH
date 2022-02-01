@@ -1,4 +1,9 @@
-const { employeeModel, categoryModel } = require("../models");
+const {
+  employeeModel,
+  categoryModel,
+  customerModel,
+  productModel,
+} = require("../models");
 
 /**
  * @description Validate if email is registered in data base
@@ -18,11 +23,48 @@ const validateExistingEmail = async (email) => {
   }
 };
 
+/**
+ * @description Validate if category is registered in data base
+ * @param {*} categoryId
+ * @author Camilo Morales Sanchez
+ */
 const validateCategory = async (categoryId) => {
   try {
     const category = await categoryModel.findById(categoryId);
     if (!category) {
-      throw new Error("Category not found in data base");
+      throw new Error("invalid category");
+    }
+  } catch (error) {
+    throw new Error(error.message);
+  }
+};
+
+/**
+ * @description Validate if customer is registered in data base
+ * @param {*} customer
+ * @author Camilo Morales Sanchez
+ */
+const validateCustomer = async (customerId) => {
+  try {
+    const customer = await customerModel.findById(customerId);
+    if (!customer) {
+      throw new Error("invalid customer");
+    }
+  } catch (error) {
+    throw new Error(error.message);
+  }
+};
+
+/**
+ * @description Validate if product is registered in data base
+ * @param {*} product
+ * @author Camilo Morales Sanchez
+ */
+const validateProduct = async (productId) => {
+  try {
+    const product = await productModel.findById(productId);
+    if (!product) {
+      throw new Error("invalid product");
     }
   } catch (error) {
     throw new Error(error.message);
@@ -31,5 +73,7 @@ const validateCategory = async (categoryId) => {
 
 module.exports = {
   validateExistingEmail,
-  validateCategory
+  validateCategory,
+  validateCustomer,
+  validateProduct,
 };
