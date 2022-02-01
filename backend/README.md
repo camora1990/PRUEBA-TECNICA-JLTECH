@@ -6,7 +6,7 @@
 
 se debe crear un archivo .env.
 
-En el archivo `.env.prueba` se encuentra alojado el ejemplo de cómo debe estar creado,el archivo .enves necesario ya que se encuentran almacenadas las variables globales para:
+En el archivo `.env.prueba` se encuentra alojado el ejemplo de cómo debe estar creado,el archivo .env necesario ya que se encuentran almacenadas las variables globales para:
 
 - puerto (PORT)
 - conexión a base de datos (CONNECTION_STRING)
@@ -30,7 +30,7 @@ los roles disponible son `["ADMINISTRATOR", "SELLER", "HUMAN RESOURCES", "WAREHO
 
 ## CREAR CATEGORIAS DE PRODUCTOS
 
-a la hora de la creacion de un producto necesitaras una categoria, estas solo las pueden crear los roles `["ADMINISTRATOR", "WAREHOUSEMAN"]` las puedes crear en en siguiente endpoint `http://localhost:8081/api/v1/categories` y el nombre de la request en postman es `POST_CATEGORY`
+Si vas a crear un producto necesitaras una categoría, estas solo las pueden crear los roles `["ADMINISTRATOR", "WAREHOUSEMAN"]` las puedes crear en siguiente endpoint `http://localhost:8081/api/v1/categories` y el nombre de la request en postman es `POST_CATEGORY`
 
 # NOTA
 
