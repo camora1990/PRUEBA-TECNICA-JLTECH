@@ -68,8 +68,8 @@ route.put(
 
     body("details.*.product")
       .if(check("details").exists())
-      .isMongoId()
-      .if(check("details").isMongoId())
+      .isMongoId().withMessage("product id is not mongoid")
+      .if(check("details.*.product").isMongoId())
       .custom(validateProduct),
     body("details.*.quantity").if(check("details").exists()).isNumeric(),
     body("details.*.subtotal").if(check("details").exists()).isNumeric(),

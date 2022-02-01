@@ -35,7 +35,7 @@ const updateCategory = async (req = request, res = response) => {
       generalMessage(res, 404, false, "category not found");
       return;
     }
-    generalMessage(res, 200, true, "category updated successfully");
+    generalMessage(res, 200, true, "category updated successfully",category);
   } catch (error) {
     generalMessage(res, 500, false, error.message);
   }

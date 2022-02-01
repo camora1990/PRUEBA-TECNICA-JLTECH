@@ -7,7 +7,7 @@ const {
 const { productModel } = require("../models");
 
 const createProduct = async (req = request, res = response) => {
-  const { name, price, descrition, category } = req.body;
+  const { name, price, description, category } = req.body;
 
   const { files } = req;
   let nameImages = [];
@@ -15,7 +15,7 @@ const createProduct = async (req = request, res = response) => {
     const product = new productModel({
       name: name.trim().toUpperCase(),
       price,
-      descrition,
+      description,
       category,
     });
     nameImages = await uploadProductImages(files);
@@ -23,7 +23,7 @@ const createProduct = async (req = request, res = response) => {
     await product.save();
     generalMessage(res, 201, true, "product created successfully", product);
   } catch (error) {
-    if (!nameImages.isEmpty()) {
+    if (!nameImages.length > 0) {
       nameImages.forEach(async (name) => {
         await deleteImgLocal(name, "../storage/products/");
       });
@@ -69,7 +69,7 @@ const deleteProduct = async (req = request, res = response) => {
 
 const updateProduct = async (req = request, res = response) => {
   const { id } = req.params;
-  const { name, price, descrition, category } = req.body;
+  const { name, price, description, category } = req.body;
   const { files } = req;
   let nameImages = [];
   try {
@@ -93,7 +93,7 @@ const updateProduct = async (req = request, res = response) => {
 
     product.name = name || product.name;
     product.price = price || product.price;
-    product.descrition = descrition || product.descrition;
+    product.description = description || product.description;
     product.category = category || product.category;
     await product.save();
     generalMessage(res, 200, true, "product update", product);

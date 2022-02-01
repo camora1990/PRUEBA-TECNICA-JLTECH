@@ -61,12 +61,12 @@ const updateCustomer = async (req = request, res = response) => {
       contact,
       address,
       email,
-    });
+    },{new:true});
     if (!customer) {
       generalMessage(res, 404, false, "customer not found");
       return;
     }
-    generalMessage(res, 200, true, "customer updated successfully");
+    generalMessage(res, 200, true, "customer updated successfully",customer);
   } catch (error) {
     generalMessage(res, 500, false, error.message);
   }

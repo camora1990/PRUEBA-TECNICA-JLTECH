@@ -84,7 +84,7 @@ const updateEmployee = async (req = request, res = response) => {
     }
     employee.role = role || employee.role;
     await employee.save();
-    generalMessage(res,200,true,"employee updated successfully")
+    generalMessage(res,200,true,"employee updated successfully",employee)
   } catch (error) {
     generalMessage(res, 500, false, error.message);
   }
