@@ -2,7 +2,7 @@ import React, { createContext, useContext, useEffect, useState } from "react";
 import { alerts } from "../helpers/alerts";
 import { Request } from "../helpers/request";
 
-const employeeContext = createContext();
+const EmployeeContext = createContext();
 const initialState = {
   id: "",
   role: "",
@@ -25,29 +25,38 @@ export const EmployeeProvider = (props) => {
   }, []);
 
   const loginEmployee = async (credentials, history) => {
+
     try {
       setLoading(true);
       const { data } = await Request.post("/login", credentials);
-      data.login.true;
-      setEmployee(data);
+      setEmployee({ ...data, login: true });
+      localStorage.setItem("employee", JSON.stringify(employee));
       alerts.sucess(`Welcome ${data.name}`);
+
+      data.role == "ADMINISTRATOR" || data.role == "HUMAN RESOURCES"
+        ? history.push("/employees")
+        : data.role == "SELLER"
+        ? history.push("/customers")
+        : history.push("/products");
+
     } catch (error) {
+      debugger
       setLoading(false);
-      if (error.response.data.errors) {
+      if (error.response?.data.errors) {
         let msg = "";
-        error.response.data.errors.forEach((element) => {
+        return error.response.data.errors.forEach((element) => {
           msg += `${element.msg}; `;
         });
       }
-      if (error.response.data.message) {
-        alerts.error("Opps.", error.response.data.message);
+      if (error.response?.data.message) {
+        return alerts.error("Opps.", error.response.data.message);
       }
       console.log("Error in loginEmployee");
     }
   };
 
   const logout = async () => {
-    setEmployee(initialEmployee);
+    setEmployee(initialState);
     localStorage.removeItem("employee");
   };
 
@@ -58,11 +67,11 @@ export const EmployeeProvider = (props) => {
     loading,
   };
 
-  return <employeeContext.Provider value={value} {...props} />;
+  return <EmployeeContext.Provider value={value} {...props} />;
 };
 
 export function useEmployee() {
-  const context = useContext(employeeContext);
+  const context = useContext(EmployeeContext);
 
   if (!context) {
     throw new Error("useEmployee error");
