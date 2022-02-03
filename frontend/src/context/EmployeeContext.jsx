@@ -16,21 +16,24 @@ export const EmployeeProvider = (props) => {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
+    debugger;
     const initialEmployee = JSON.parse(localStorage.getItem("employee"));
     initialEmployee
-      ? initialState.login
+      ? initialEmployee.login
         ? setEmployee(initialEmployee)
         : setEmployee(initialState)
       : setEmployee(initialState);
   }, []);
 
   const loginEmployee = async (credentials, history) => {
-
     try {
       setLoading(true);
       const { data } = await Request.post("/login", credentials);
       setEmployee({ ...data, login: true });
-      localStorage.setItem("employee", JSON.stringify(employee));
+      localStorage.setItem(
+        "employee",
+        JSON.stringify({ ...data, login: true })
+      );
       alerts.sucess(`Welcome ${data.name}`);
 
       data.role == "ADMINISTRATOR" || data.role == "HUMAN RESOURCES"
@@ -38,9 +41,7 @@ export const EmployeeProvider = (props) => {
         : data.role == "SELLER"
         ? history.push("/customers")
         : history.push("/products");
-
     } catch (error) {
-      debugger
       setLoading(false);
       if (error.response?.data.errors) {
         let msg = "";
@@ -55,8 +56,9 @@ export const EmployeeProvider = (props) => {
     }
   };
 
-  const logout = async () => {
+  const logout = async (history) => {
     setEmployee(initialState);
+    history.push("/");
     localStorage.removeItem("employee");
   };
 
