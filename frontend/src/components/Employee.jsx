@@ -1,5 +1,6 @@
-import React from 'react';
+import React from "react";
+import { Nav } from "./Nav";
 
 export const Employee = () => {
-  return <div></div>;
+  return <Nav />;
 };

@@ -1,5 +1,8 @@
 import React from 'react';
+import { Nav } from './Nav';
 
 export const Customer = () => {
-  return <div></div>;
+  return <>
+    <Nav />
+  </>;
 };
