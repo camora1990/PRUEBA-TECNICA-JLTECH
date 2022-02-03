@@ -77,7 +77,7 @@ export const Nav = () => {
                 className="user-image ms-2"
                 height={30}
                 width={30}
-                alt="Black and White Portrait of a Man"
+                alt="user"
                 loading="lazy"
               />
             </ul>

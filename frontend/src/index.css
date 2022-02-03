@@ -17,3 +17,11 @@
   -moz-box-shadow: 4px -1px 48px 1px rgba(0, 0, 0, 0.33);
   box-shadow: 4px -1px 48px 1px rgba(0, 0, 0, 0.33);
 }
+
+.user-image{
+  border-radius: 50%;
+  object-fit: fill;
+}
+.item-custom:active{
+ background-color: #212529;
+}
