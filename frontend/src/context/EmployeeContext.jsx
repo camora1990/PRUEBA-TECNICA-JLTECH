@@ -1,6 +1,7 @@
+import axios from "axios";
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { alerts } from "../helpers/alerts";
-import { Request } from "../helpers/request";
+
 
 const EmployeeContext = createContext();
 const initialState = {
@@ -27,8 +28,11 @@ export const EmployeeProvider = (props) => {
 
   const loginEmployee = async (credentials, history) => {
     try {
+      debugger
       setLoading(true);
-      const { data } = await Request.post("/login", credentials);
+    
+      const { data:response } = await axios.post("/login", credentials)
+      const {data} = response
       setEmployee({ ...data, login: true });
       localStorage.setItem(
         "employee",
@@ -41,6 +45,7 @@ export const EmployeeProvider = (props) => {
         : data.role == "SELLER"
         ? history.push("/customers")
         : history.push("/products");
+        setLoading(false);
     } catch (error) {
       setLoading(false);
       if (error.response?.data.errors) {
