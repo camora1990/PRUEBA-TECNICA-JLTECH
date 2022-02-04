@@ -2,10 +2,10 @@ const { request, response } = require("express");
 const { generateJWT, generalMessage } = require("../helpers");
 
 const login = async (req = request, res = response) => {
-  const { _id: id, role, name, email, image } = req.employee;
+  const { _id: id, role, name, email, image,address,contact } = req.employee;
 
   try {
-    const payload = { id, role, name, email, image };
+    const payload = { id, role, name, email, image,address,contact };
     const token = await generateJWT(payload);
 
     payload.token = token;
