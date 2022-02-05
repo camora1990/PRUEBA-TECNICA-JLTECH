@@ -4,7 +4,12 @@ import { NavLink, useHistory } from "react-router-dom";
 
 import defaultUser from "../public/defaultUser.jpg";
 
-export const Nav = ({ seteditProfile ,setlocaleEmploye,setimagePreview,setisNewEmployee}) => {
+export const Nav = ({
+  seteditProfile,
+  setlocaleEmploye,
+  setimagePreview,
+  setisNewEmployee,
+}) => {
   const { employee, logout } = useEmployee();
   const [itemsMenu, setItemsMenu] = useState([]);
   const history = useHistory();
@@ -19,7 +24,10 @@ export const Nav = ({ seteditProfile ,setlocaleEmploye,setimagePreview,setisNewE
         ]);
         break;
       case "SELLER":
-        setItemsMenu([{ name: "Customers", path: "/customers" }]);
+        setItemsMenu([
+          { name: "Customers", path: "/customers" },
+          { name: "Sales", path: "/sales" },
+        ]);
         break;
       case "HUMAN RESOURCES":
         setItemsMenu([
@@ -94,11 +102,10 @@ export const Nav = ({ seteditProfile ,setlocaleEmploye,setimagePreview,setisNewE
                   data-bs-toggle="modal"
                   data-bs-target="#modalEmployee"
                   onClick={() => {
-                    setisNewEmployee(false)
+                    setisNewEmployee(false);
                     seteditProfile(true);
-                    setlocaleEmploye(employee)
-                    setimagePreview(employee.image)
-                    
+                    setlocaleEmploye(employee);
+                    setimagePreview(employee.image);
                   }}
                 >
                   My profile
