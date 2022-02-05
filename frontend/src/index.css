@@ -25,3 +25,22 @@
 .item-custom:active{
  background-color: #212529;
 }
+
+#my-menu button:focus{
+  border: none;
+  box-shadow: none;
+}
+
+i{
+  cursor: pointer;
+ 
+}
+.fa-trash-alt{
+  color: red;
+}
+.fa-user-edit {
+  color: yellowgreen;
+}
+.fa-phone-alt{
+  color: blue;
+}

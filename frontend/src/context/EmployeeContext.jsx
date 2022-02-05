@@ -10,6 +10,8 @@ const initialState = {
   name: "",
   email: "",
   token: "",
+  address:"",
+  contac:"",
   login: false,
 };
 export const EmployeeProvider = (props) => {
@@ -17,7 +19,6 @@ export const EmployeeProvider = (props) => {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    debugger;
     const initialEmployee = JSON.parse(localStorage.getItem("employee"));
     initialEmployee
       ? initialEmployee.login
@@ -28,9 +29,7 @@ export const EmployeeProvider = (props) => {
 
   const loginEmployee = async (credentials, history) => {
     try {
-      debugger
       setLoading(true);
-    
       const { data:response } = await axios.post("/login", credentials)
       const {data} = response
       setEmployee({ ...data, login: true });
@@ -50,9 +49,10 @@ export const EmployeeProvider = (props) => {
       setLoading(false);
       if (error.response?.data.errors) {
         let msg = "";
-        return error.response.data.errors.forEach((element) => {
+        error.response.data.errors.forEach((element) => {
           msg += `${element.msg}; `;
         });
+        return alerts.error("Erros", msg);
       }
       if (error.response?.data.message) {
         return alerts.error("Opps.", error.response.data.message);
@@ -72,6 +72,7 @@ export const EmployeeProvider = (props) => {
     loginEmployee,
     logout,
     loading,
+    setEmployee
   };
 
   return <EmployeeContext.Provider value={value} {...props} />;

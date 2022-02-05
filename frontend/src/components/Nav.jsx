@@ -3,7 +3,8 @@ import { useEmployee } from "../context/EmployeeContext";
 import { NavLink, useHistory } from "react-router-dom";
 
 import defaultUser from "../public/defaultUser.jpg";
-export const Nav = () => {
+
+export const Nav = ({ seteditProfile ,setlocaleEmploye,setimagePreview,setisNewEmployee}) => {
   const { employee, logout } = useEmployee();
   const [itemsMenu, setItemsMenu] = useState([]);
   const history = useHistory();
@@ -85,16 +86,33 @@ export const Nav = () => {
             <ul
               className="dropdown-menu dropdown-menu-dark end-0"
               aria-labelledby="dropdownMenuLink"
+              id="my-menu"
             >
-              <li>
-                <a
-                  className="dropdown-item item-custom"
+              <li className="px-2 m-1">
+                <button
+                  className="btn btn-secondary w-100"
+                  data-bs-toggle="modal"
+                  data-bs-target="#modalEmployee"
+                  onClick={() => {
+                    setisNewEmployee(false)
+                    seteditProfile(true);
+                    setlocaleEmploye(employee)
+                    setimagePreview(employee.image)
+                    
+                  }}
+                >
+                  My profile
+                </button>
+              </li>
+              <li className="px-2 m-1">
+                <button
+                  className="btn btn-secondary w-100"
                   onClick={(e) => {
                     logout(history);
                   }}
                 >
                   Logout
-                </a>
+                </button>
               </li>
             </ul>
           </div>
