@@ -5,6 +5,7 @@ const {
   register,
   deleteEmployee,
   updateEmployee,
+  updateProfile,
 } = require("../controller");
 const { validateExistingEmail } = require("../helpers");
 const { checkFields } = require("../middlewares/check_fields.middleware");
@@ -85,6 +86,23 @@ route.put(
     checkFields,
   ],
   updateEmployee
+);
+
+route.put(
+  "/",
+  [
+    validateJWT,
+    validateRoleRouteEmployees,
+
+    check(
+      "role",
+      "Invalid role [ADMINISTRATOR, SELLER, HUMAN RESOURCES, WAREHOUSEMAN]"
+    )
+      .if(check("role").exists())
+      .isIn(["ADMINISTRATOR", "SELLER", "HUMAN RESOURCES", "WAREHOUSEMAN"]),
+    checkFields,
+  ],
+  updateProfile
 );
 
 module.exports = route;

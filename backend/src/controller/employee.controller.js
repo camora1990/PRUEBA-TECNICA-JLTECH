@@ -7,7 +7,6 @@ const {
 } = require("../helpers");
 const { employeeModel } = require("../models");
 
-
 const listEmployees = async (req = request, res = response) => {
   const { limit = 10, page = 1 } = req.query;
   try {
@@ -59,7 +58,7 @@ const updateEmployee = async (req = request, res = response) => {
     const employee = await employeeModel.findById(id);
     if (!employee) {
       generalMessage(res, 404, false, "employee not found");
-      return
+      return;
     }
     employee.name = name || employee.name;
     employee.contact = contact || employee.contact;
@@ -84,7 +83,46 @@ const updateEmployee = async (req = request, res = response) => {
     }
     employee.role = role || employee.role;
     await employee.save();
-    generalMessage(res,200,true,"employee updated successfully",employee)
+    generalMessage(res, 200, true, "employee updated successfully", employee);
+  } catch (error) {
+    generalMessage(res, 500, false, error.message);
+  }
+};
+
+const updateProfile = async (req = request, res = response) => {
+  const { name, contact, address, role } = req.body;
+  const { files } = req;
+  console.log(req.payload);
+  const {id} = req.payload
+  let imgName;
+  try {
+    const employee = await employeeModel.findById(id);
+    if (!employee) {
+      generalMessage(res, 404, false, "employee not found");
+      return;
+    }
+    employee.name = name || employee.name;
+    employee.contact = contact || employee.contact;
+    employee.address = address || employee.address;
+
+
+    if (files) {
+      if (employee.image) {
+        const splitImage = employee.image.split("/");
+        const imageName = splitImage[splitImage.length - 1];
+        await deleteImgLocal(imageName, "../storage/employees");
+      }
+      try {
+        imgName = await uploadImage(files);
+        employee.saveUrlImg(imgName);
+      } catch (error) {
+        generalMessage(res, 400, false, error.message);
+        return;
+      }
+    }
+    employee.role = role || employee.role;
+    await employee.save();
+    generalMessage(res, 200, true, "employee updated successfully", employee);
   } catch (error) {
     generalMessage(res, 500, false, error.message);
   }
@@ -94,4 +132,5 @@ module.exports = {
   deleteEmployee,
   listEmployees,
   updateEmployee,
+  updateProfile
 };
