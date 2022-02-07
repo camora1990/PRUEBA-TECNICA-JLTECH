@@ -182,9 +182,10 @@ export const Employee = () => {
           setLoading(false);
           if (error.response?.data.errors) {
             let msg = "";
-            return error.response.data.errors.forEach((element) => {
+             error.response.data.errors.forEach((element) => {
               msg += `${element.msg}; `;
             });
+            return alerts.error("Opps.", msg)
           }
           if (error.response?.data.message) {
             return alerts.error("Opps.", error.response.data.message);
